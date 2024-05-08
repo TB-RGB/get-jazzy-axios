@@ -48,7 +48,7 @@ const songListArray = [
 
 app.use(express.static("server/public"));
 app.use(express.json());
-// ! for postman 
+// ! for postman
 // app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }));
 
