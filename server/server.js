@@ -49,7 +49,7 @@ const songListArray = [
 app.use(express.static("server/public"));
 app.use(express.json());
 // ! for postman 
-    //use app.use(express.urlencoded({ extended: true }))
+// app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/artist", (req, res) => {
@@ -59,7 +59,7 @@ app.get("/artist", (req, res) => {
 app.post("/artist", (req, res) => {
   console.log(`Get a POST request!`, req.body);
 
-  let artist = req.body.artistToAdd;
+  let artist = req.body;
 
   console.log("Adding new artist:", artist);
   artistListArray.push(artist);

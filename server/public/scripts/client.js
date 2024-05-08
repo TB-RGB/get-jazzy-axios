@@ -12,6 +12,7 @@ function onReady() {
       // quotesFromServer will be an Array of quotes
       let quotesFromServer = response.data;
       let contentDiv = document.getElementById("artistTableBody");
+      contentDiv.innerHTML = ''
       for (let artist of quotesFromServer) {
         contentDiv.innerHTML += `
                 <tr>
@@ -39,6 +40,7 @@ function onReady() {
 
       let songsFromServer = response.data;
       let songsDiv = document.getElementById("songTableBody");
+      songsDiv.innerHTML = ''
       for (let song of songsFromServer) {
         songsDiv.innerHTML += `
                 <tr>
@@ -57,29 +59,26 @@ function onReady() {
 function addArtist(event) {
   event.preventDefault();
 
-  let artistToAdd = {};
-  artistToAdd.name = document.getElementById("artistNameInput").value;
+
+  artistToAddName = document.getElementById("artistNameInput").value;
   birthYear = document.getElementById("artistBirthInput").value;
-  artistToAdd.born = Number(birthYear)
+  artistToAddBorn = Number(birthYear)
   deathYear = document.getElementById("artistDeathInput").value;
-  artistToAdd.died = Number(deathYear)
+  artistToAddDied = Number(deathYear)
 
   axios({
     method: "POST",
     url: "/artist",
-    data: { artistToAdd },
+    data: { 
+        name: artistToAddName,
+        born: artistToAddBorn,
+        died: artistToAddDied
+     },
   })
     .then((response) => {
-        console.log(artistToAdd)
+        console.log('Artist being added')
 
-        let artistDiv = document.getElementById('artistTableBody')
-        artistDiv.innerHTML += `
-        <tr>
-            <td>${artistToAdd.name}</td>
-            <td>${artistToAdd.born}</td>
-            <td>${artistToAdd.died}</td>
-        </tr>
-    `;
+        onReady()
     })
     .catch((err) => {
         console.log(err)
