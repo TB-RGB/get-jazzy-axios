@@ -11,7 +11,7 @@ function onReady() {
             console.log(response);
             // quotesFromServer will be an Array of quotes
             let quotesFromServer = response.data;
-            let contentDiv = document.querySelector('#artistTableBody');
+            let contentDiv = document.getElementById('artistTableBody');
             for (let artist of quotesFromServer) {
                 contentDiv.innerHTML += `
                 <tr>
@@ -28,6 +28,29 @@ function onReady() {
         });
 
     // TODO Add Axios request for /songs and display on DOM
-}
 
+
+    axios({
+        method: 'GET',
+        url: '/songs'
+    })
+        .then(function (response) {
+            console.log(response);
+
+            let songsFromServer = response.data;
+            let songsDiv = document.getElementById('songTableBody');
+            for (let song of songsFromServer) {
+                songsDiv.innerHTML += `
+                <tr>
+                    <td>${song.title}</td>
+                    <td>${song.artist}</td>
+                </tr>
+                `;
+            }
+
+        }).catch(function (error) {
+            console.log(error);
+            alert('ERR MERR GERRD, ERRERR. LERK ERT CERNSERL')
+        });
+    }
 onReady();
